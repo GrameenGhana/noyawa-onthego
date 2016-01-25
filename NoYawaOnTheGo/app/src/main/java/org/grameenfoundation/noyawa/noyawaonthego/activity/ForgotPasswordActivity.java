@@ -1,4 +1,4 @@
-package org.grameenfoundation.noyawa.noyawaonthego;
+package org.grameenfoundation.noyawa.noyawaonthego.activity;
 
 /**
  * Created by mac on 1/21/16.

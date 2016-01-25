@@ -1,4 +1,4 @@
-package org.grameenfoundation.noyawa.noyawaonthego;
+package org.grameenfoundation.noyawa.noyawaonthego.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.grameenfoundation.noyawa.noyawaonthego.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

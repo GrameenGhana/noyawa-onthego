@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NoYawa On The Go</string>
+    <string name="action_settings">Settings</string>
+    <string name="prefServerDefault">http://41.191.245.72/noyawagh/api/</string>
 </resources>
