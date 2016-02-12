@@ -44,7 +44,7 @@ public void insertUserTable(String volunteer_name,String username,String passwor
         DataClass.NoyawaDatabase.LOGIN_TABLE_NAME, null, values);
         }
 
-public void insertLoginActivity(String date,String time,String username,String password,String status,String update_status){
+public void insertLoginActivity(String date,String time,String username,String status,String update_status){
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DataClass.NoyawaDatabase.COL_DATE_LOGGED_IN,date);

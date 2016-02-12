@@ -57,7 +57,7 @@ public class Noyawa extends Application {
     public static String getUsername(){
         String username=null;
         prefs=context.getApplicationContext().getSharedPreferences("loginPrefs", MODE_WORLD_READABLE);
-        username=prefs.getString("fullname", "name");
+        username=prefs.getString("username", "name");
         return username;
     }
 

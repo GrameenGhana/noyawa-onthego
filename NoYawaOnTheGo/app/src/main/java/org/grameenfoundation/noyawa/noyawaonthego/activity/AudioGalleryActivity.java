@@ -51,8 +51,13 @@ public class AudioGalleryActivity extends BaseActivity implements OnItemClickLis
 			String ewePath=eweLocation+ File.separator;
 			String englishLocation=intent.getStringExtra(Noyawa.ENGLISH_AUDIO_LOCATION);
 			String englishPath=englishLocation+ File.separator;
-			songList=player.loadAssets(englishLocation,eweLocation,
-	 				  		ewePath,englishPath);
+			 //loading name of files
+			//songList=player.loadAssets(englishLocation,eweLocation,
+	 		//		  		ewePath,englishPath);
+
+	 		songList=player.loadFilesFromPhone(englishLocation,eweLocation);
+
+			//loading the path
 			path=player.getFilePath(eweLocation, englishLocation);
 			populateImages();
 			populateSongNames();

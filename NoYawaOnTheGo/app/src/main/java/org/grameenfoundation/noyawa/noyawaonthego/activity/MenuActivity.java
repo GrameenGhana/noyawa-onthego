@@ -38,7 +38,6 @@ public class MenuActivity extends Activity implements AdapterView.OnItemClickLis
     Context context;
     SharedPreferences prefs;
     int[] images={
-            R.drawable.topics,
             R.drawable.youth,
             R.drawable.story_messages,
             R.drawable.radio_series,
@@ -73,9 +72,11 @@ public class MenuActivity extends Activity implements AdapterView.OnItemClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
         context = getApplicationContext();
         db=new DatabaseHandler(MenuActivity.this);
         grid=(GridView) findViewById(R.id.gridView1);
+
         TextView header = (TextView)findViewById(R.id.header);
         Typeface custom_font = Typeface.createFromAsset(getAssets(),
                 "fonts/Roboto-MediumItalic.ttf");
@@ -85,7 +86,7 @@ public class MenuActivity extends Activity implements AdapterView.OnItemClickLis
 
         //retrieve login details from the shared preferences to be used in the app
         loginPref=MenuActivity.this.getSharedPreferences("loginPrefs", MODE_WORLD_READABLE);
-        name=loginPref.getString("fname", "name");
+        name=loginPref.getString("username", "name");
         header.setText("Welcome "+name);
         MenuBaseAdapter adapter=new MenuBaseAdapter(MenuActivity.this,images);
         grid.setAdapter(adapter);
@@ -160,40 +161,35 @@ public class MenuActivity extends Activity implements AdapterView.OnItemClickLis
         Intent intent;
         switch (position){
             case 0:
-
-                intent=new Intent(MenuActivity.this, TopicsMenuActivity.class);
-                startActivity(intent);
-                break;
-            case 1:
                 intent=new Intent(MenuActivity.this, YouthHealthMenuActivity.class);
                 startActivity(intent);
                 break;
-            case 2:
+            case 1:
                 intent=new Intent(MenuActivity.this, StoryMenuActivity.class);
                 startActivity(intent);
                 break;
 
-            case 3:
+            case 2:
                 intent=new Intent(MenuActivity.this, RadioSeriesActivity.class);
                 startActivity(intent);
                 break;
-            case 4:
+            case 3:
                 intent=new Intent(MenuActivity.this, VisualAidsViewPager.class);
                 startActivity(intent);
                 break;
-            case 5:
+            case 4:
                 intent=new Intent(MenuActivity.this, PregnancyMenuActivity.class);
                 startActivity(intent);
                 break;
-            case 6:
+            case 5:
                 intent=new Intent(MenuActivity.this, NewClientRegistrationActivity.class);
                 startActivity(intent);
                 break;
-            case 7:
+            case 6:
                 intent=new Intent(MenuActivity.this, MeetingsActivity.class);
                 startActivity(intent);
                 break;
-            case 8:
+            case 7:
                 intent=new Intent(MenuActivity.this, LanguageSettingsActivity.class);
                 startActivity(intent);
                 break;

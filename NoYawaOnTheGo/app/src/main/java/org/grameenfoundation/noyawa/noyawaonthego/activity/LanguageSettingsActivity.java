@@ -160,32 +160,15 @@ public class LanguageSettingsActivity extends Activity implements OnItemClickLis
 			break;
 			
 		case 1:
-		
-			
-			// task=new RegistrationTask();
-			 /*
-			 String value="staffId="+URLEncoder.encode("1")+
-	 					"&facilityId="+URLEncoder.encode("414")+
-	 					"&regMode="+URLEncoder.encode("PREGNANT_MOTHER")+
-	 					"&firstName="+URLEncoder.encode("Florence")+
-	 					"&middleName="+URLEncoder.encode("Lomotiorkor")+
-	 					"&lastName="+URLEncoder.encode("Jones")+
-	 					"&dob="+URLEncoder.encode("15-08-1990")+
-	 					"&estimatedDob="+URLEncoder.encode("FALSE")+
-	 					"&nhisNumber="+URLEncoder.encode("1234567")+
-	 					"&nhisExpiryDate="+URLEncoder.encode("15-09-2014")+
-	 					"&region="+URLEncoder.encode("Greater Accra")+
-	 					"&address="+URLEncoder.encode("Accra")+
-	 					"&phoneNumber"+URLEncoder.encode("233540827309")+
-	 					"&username="+URLEncoder.encode("admin")+
-	 					"&password="+URLEncoder.encode("P@ssword");
-	 					*/
-			// task.execute( "http://41.190.69.163:8080/ghana-national-web/registerPatient");
+			Intent mainIntent = new Intent(LanguageSettingsActivity.this,NewClientRegistrationActivity.class);
+			LanguageSettingsActivity.this.startActivity(mainIntent);
+			LanguageSettingsActivity.this.finish();
+
 			 
 			break;
 		case 2:	
-			Intent mainIntent = new Intent(LanguageSettingsActivity.this,NewClientRegistrationActivity.class);
-			 LanguageSettingsActivity.this.startActivity(mainIntent);
+			Intent i = new Intent(LanguageSettingsActivity.this,LoginActivity.class);
+			 LanguageSettingsActivity.this.startActivity(i);
 			 LanguageSettingsActivity.this.finish();
 			break;
 		}

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.media.MediaPlayer;
+import android.os.Environment;
 import android.os.Handler;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -114,13 +115,11 @@ public class Player{
 			return message_status;
 			
 		} 
-		
-		  
-			   
+
 			   public String getUserName(){
 				   String userName;
 				   SharedPreferences loginPref=ctx.getSharedPreferences("loginPrefs", ctx.MODE_WORLD_READABLE);
-				   userName=loginPref.getString("fullname", "name");
+				   userName=loginPref.getString("username", "name");
 				   return userName;
 			   }
 			   
@@ -156,6 +155,45 @@ public class Player{
 				    }
 				    return fileslist;
 			   }
+
+	public  String[] loadFilesFromPhone(String Englishlocation,String Ewelocation){
+		String[] fileslist = null;
+		ArrayList<String> f = new ArrayList<String>();
+
+
+		try {
+			if(getLanguage().equalsIgnoreCase("Ewe")){
+				File files = new File(Ewelocation);
+				if(!files.exists()){
+					files=new File(Environment.getExternalStorageDirectory(),Ewelocation);
+				}
+
+				fileslist = files.list();
+				for(int i=0;i<fileslist.length;i++){
+					f.add(fileslist[i]);
+				}
+
+			}else if(getLanguage().equalsIgnoreCase("English")){
+				File files = new File(Englishlocation);
+				if(!files.exists()){
+					files=new File(Environment.getExternalStorageDirectory(),Englishlocation);
+				}
+
+				fileslist = files.list();
+				for(int i=0;i<fileslist.length;i++){
+					f.add(fileslist[i]);
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return fileslist;
+
+	}
+
+
+
 			   public String getFilePath(String Ewelocation,String Englishlocation){
 				   String path=null;
 				 	if(getLanguage().equalsIgnoreCase("Ewe")){
