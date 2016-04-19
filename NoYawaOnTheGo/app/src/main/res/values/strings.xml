@@ -10,7 +10,7 @@
     <string name="language_english">English</string>
     <string name="language_ewe">Ewe</string>
     <string name="reg_date">New Client Registration</string>
-    <string name="sex">Gender:</string>
+    <string name="sex">Gender :</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="submit">Submit</string>
@@ -29,11 +29,13 @@
     <string name="location_status">Location Status :</string>
     <string name="urban">Urban</string>
     <string name="rural">Rural</string>
-    <string name="language_kaseem">Kassem</string>
+    <string name="language_kaseem">Kasim</string>
     <string name="language_twi">Twi</string>
     <string name="language_dangme">Dangme</string>
     <string name="Meetings">Meetings</string>
     <string name="male_attendance">Male Attendance :</string>
     <string name="female_attendance">Female Attendance :</string>
     <string name="start">Start</string>
+    <string name="meeting_title">Meeting Title :</string>
+    <string name="comments">Comments :</string>
 </resources>

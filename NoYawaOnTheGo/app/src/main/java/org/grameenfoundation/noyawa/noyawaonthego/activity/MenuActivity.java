@@ -87,7 +87,7 @@ public class MenuActivity extends Activity implements AdapterView.OnItemClickLis
         //retrieve login details from the shared preferences to be used in the app
         loginPref=MenuActivity.this.getSharedPreferences("loginPrefs", MODE_WORLD_READABLE);
         name=loginPref.getString("username", "name");
-        header.setText("Welcome "+name);
+        header.setText("Welcome "+capitalize(name));
         MenuBaseAdapter adapter=new MenuBaseAdapter(MenuActivity.this,images);
         grid.setAdapter(adapter);
         grid.setOnItemClickListener(this);
@@ -96,8 +96,20 @@ public class MenuActivity extends Activity implements AdapterView.OnItemClickLis
         username=loginPref.getString("username", "name");
 
 
+        TextView languageselected = (TextView)findViewById(R.id.languageselected);
+        languageselected.setText("Selected Language: "+getLanguage().toUpperCase());
 
+    }
 
+    public String getLanguage(){
+        String language;
+        SharedPreferences sharedPrefs=context.getSharedPreferences("myPrefs", context.MODE_WORLD_READABLE);
+        language=sharedPrefs.getString("option", "English");
+        return language;
+    }
+
+    private String capitalize(final String line) {
+        return Character.toUpperCase(line.charAt(0)) + line.substring(1);
     }
 
     @Override

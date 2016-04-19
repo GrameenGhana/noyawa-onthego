@@ -99,30 +99,7 @@ public class VisualAidsGalleryView extends Activity {
 		    	image.setImageBitmap(
 		    		    decodeSampledBitmapFromResource(getResources(), R.raw.full_five, 400, 400));
 		    	break;
-	    	case 5:
-	    		/*
-		    	Picasso.with(VisualAidsGalleryView.this)
-		    	.load(R.raw.full_six)
-		    	.placeholder(R.drawable.ic_placeholder)
-		    	.noFade()
-		    	.error(R.drawable.ic_error)
-		    	.into(image);
-		    	*/
-		    	image.setImageBitmap(
-		    		    decodeSampledBitmapFromResource(getResources(), R.raw.full_six, 400, 400));
-		    	break;
-	    	case 6:
-	    		/*
-		    	Picasso.with(VisualAidsGalleryView.this)
-		    	.load(R.raw.full_seven)
-		    	.placeholder(R.drawable.ic_placeholder)
-		    	.noFade()
-		    	.error(R.drawable.ic_error)
-		    	.into(image);
-		    	*/
-		    	image.setImageBitmap(
-		    		    decodeSampledBitmapFromResource(getResources(), R.raw.full_seven, 400, 400));
-		    	break;
+
 	    	}
 	   
 	    }else{

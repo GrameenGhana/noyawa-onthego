@@ -52,13 +52,24 @@ public class WelcomeActivity extends Activity {
                     startActivity(mainIntent);
                 }else{
                     //take the user to the main menu
-                  //  Intent mainIntent = new Intent(ctx,MenuActivity.class);
-                  //  ctx.startActivity(mainIntent);
+                    Intent mainIntent = new Intent(getApplicationContext(),MenuActivity.class);
+                    startActivity(mainIntent);
 
                 }
                 finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
+
+
+        if (!isTaskRoot()
+                && getIntent().hasCategory(Intent.CATEGORY_LAUNCHER)
+                && getIntent().getAction() != null
+                && getIntent().getAction().equals(Intent.ACTION_MAIN)) {
+
+            finish();
+            return;
+        }
+        
     }
 
 

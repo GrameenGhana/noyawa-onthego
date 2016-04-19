@@ -27,6 +27,8 @@ public class Noyawa extends Application {
     public static final String MODULE_BABY_FIRST_YEAR="Baby's first year";
     public static final String MODULE_PREGNANCY_MESSAGES="Pregnancy messages";
     public static final String MODULE_YOUTH_SEXUAL_HEALTH="Youth Sexual Health";
+    public static final String MODULE_STORY_MESSAGES="Story Messages";
+    public static final String MODULE_RADIO_STORY_MESSAGES="Radio Story Messages";
     public static final String MODULE_VISUAL_AIDS ="Visual Aids";
     public static final String MODULE_REFERRAL_ALERTS="Referral Alerts System";
     public static final String EXTRAS_FIRST_TRIMESTER="	1st Trimester";
@@ -42,6 +44,13 @@ public class Noyawa extends Application {
     public final static String TYPE = "type";
     public final static String EWE_AUDIO_LOCATION = "eweLocation";
     public final static String ENGLISH_AUDIO_LOCATION = "englishLocation";
+    public final static String DAGBANI_AUDIO_LOCATION = "dangbaniLocation";
+    public final static String DAGARE_AUDIO_LOCATION = "dagareLocation";
+    public final static String DANGBE_AUDIO_LOCATION = "dangbeLocation";
+    public final static String GONJA_AUDIO_LOCATION = "gonjaLocation";
+    public final static String HAUSA_AUDIO_LOCATION = "hausaLocation";
+    public final static String KASIM_AUDIO_LOCATION = "kasimLocation";
+    public final static String TWI_AUDIO_LOCATION = "twiLocation";
     public final static String EXTRAS = "extras";
     public void onCreate(){
         super.onCreate();

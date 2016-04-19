@@ -36,6 +36,19 @@
         android:gravity="center_vertical|center"
         android:text="Welcome"/>
 
+    <TextView
+        android:id="@+id/languageselected"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/White"
+        android:paddingBottom="15dp"
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp"
+        android:paddingTop="15dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20sp"
+        android:gravity="center_vertical|center"
+        android:text="Selected Language"/>
 
 
     <GridView

@@ -78,8 +78,8 @@ public class ThirdTrimesterActivity extends BaseActivity implements OnItemClickL
 			submodule="Normal Signs of Pregnancy";
 			module=Noyawa.MODULE_PREGNANCY_MESSAGES;
 			extras=Noyawa.EXTRAS_THIRD_TRIMESTER;
-			 eweLocation="Ewe Pregnancy Messages/3rd Trimester/Normal Signs of Pregnancy";
-			 englishLocation="English Pregancy Messages/3rd Trimester/Normal Signs of Pregnancy";
+			 eweLocation="Noyawa/Ewe Pregnancy Messages/3rd Trimester/Normal Signs of Pregnancy";
+			 englishLocation="Noyawa/English Pregancy Messages/3rd Trimester/Normal Signs of Pregnancy";
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);
@@ -95,8 +95,8 @@ public class ThirdTrimesterActivity extends BaseActivity implements OnItemClickL
 			submodule="ANC";
 			module=Noyawa.MODULE_PREGNANCY_MESSAGES;
 			extras=Noyawa.EXTRAS_THIRD_TRIMESTER;
-			 eweLocation="Ewe Pregnancy Messages/3rd Trimester/ANC";
-			 englishLocation="English Pregancy Messages/3rd Trimester/ANC";
+			 eweLocation="Noyawa/Ewe Pregnancy Messages/3rd Trimester/ANC";
+			 englishLocation="Noyawa/English Pregancy Messages/3rd Trimester/ANC";
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);
@@ -112,8 +112,8 @@ public class ThirdTrimesterActivity extends BaseActivity implements OnItemClickL
 			submodule="Labor Signs and facility delivery";
 			module=Noyawa.MODULE_PREGNANCY_MESSAGES;
 			extras=Noyawa.EXTRAS_THIRD_TRIMESTER;
-			 eweLocation="Ewe Pregnancy Messages/3rd Trimester/Labor Signs and facility delivery";
-			 englishLocation="English Pregancy Messages/3rd Trimester/Labor Signs and facility delivery";
+			 eweLocation="Noyawa/Ewe Pregnancy Messages/3rd Trimester/Labor Signs and facility delivery";
+			 englishLocation="Noyawa/English Pregancy Messages/3rd Trimester/Labor Signs and facility delivery";
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);
@@ -129,8 +129,8 @@ public class ThirdTrimesterActivity extends BaseActivity implements OnItemClickL
 			submodule="Breastfeeding";
 			module=Noyawa.MODULE_PREGNANCY_MESSAGES;
 			extras=Noyawa.EXTRAS_THIRD_TRIMESTER;
-			 eweLocation="Ewe Pregnancy Messages/3rd Trimester/Breastfeeding";
-			 englishLocation="English Pregancy Messages/3rd Trimester/Breastfeeding";
+			 eweLocation="Noyawa/Ewe Pregnancy Messages/3rd Trimester/Breastfeeding";
+			 englishLocation="Noyawa/English Pregancy Messages/3rd Trimester/Breastfeeding";
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);
@@ -146,8 +146,8 @@ public class ThirdTrimesterActivity extends BaseActivity implements OnItemClickL
 			submodule="PNC and Immunization";
 			module=Noyawa.MODULE_PREGNANCY_MESSAGES;
 			extras=Noyawa.EXTRAS_THIRD_TRIMESTER;
-			 eweLocation="Ewe Pregnancy Messages/3rd Trimester/PNC and Immunization";
-			 englishLocation="English Pregancy Messages/3rd Trimester/PNC and Immunization";
+			 eweLocation="Noyawa/Ewe Pregnancy Messages/3rd Trimester/PNC and Immunization";
+			 englishLocation="Noyawa/English Pregancy Messages/3rd Trimester/PNC and Immunization";
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);
@@ -163,8 +163,8 @@ public class ThirdTrimesterActivity extends BaseActivity implements OnItemClickL
 			submodule="Fontanelle and Cord Care";
 			module=Noyawa.MODULE_PREGNANCY_MESSAGES;
 			extras=Noyawa.EXTRAS_THIRD_TRIMESTER;
-			 eweLocation="Ewe Pregnancy Messages/3rd Trimester/Fontanelle and Cord Care";
-			 englishLocation="English Pregancy Messages/3rd Trimester/Fontanelle and Cord Care";
+			 eweLocation="Noyawa/Ewe Pregnancy Messages/3rd Trimester/Fontanelle and Cord Care";
+			 englishLocation="Noyawa/English Pregancy Messages/3rd Trimester/Fontanelle and Cord Care";
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);
@@ -180,8 +180,8 @@ public class ThirdTrimesterActivity extends BaseActivity implements OnItemClickL
 			submodule="Warning Signs of Pregnancy";
 			module=Noyawa.MODULE_PREGNANCY_MESSAGES;
 			extras=Noyawa.EXTRAS_THIRD_TRIMESTER;
-			 eweLocation="Ewe Pregnancy Messages/3rd Trimester/Warning Sign of Pregnancy";
-			 englishLocation="English Pregancy Messages/3rd Trimester/Warning Sign of Pregnancy";
+			 eweLocation="Noyawa/Ewe Pregnancy Messages/3rd Trimester/Warning Sign of Pregnancy";
+			 englishLocation="Noyawa/English Pregancy Messages/3rd Trimester/Warning Sign of Pregnancy";
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);
@@ -197,8 +197,8 @@ public class ThirdTrimesterActivity extends BaseActivity implements OnItemClickL
 			submodule="Handwashing";
 			module=Noyawa.MODULE_PREGNANCY_MESSAGES;
 			extras=Noyawa.EXTRAS_THIRD_TRIMESTER;
-			 eweLocation="Ewe Pregnancy Messages/3rd Trimester/Handwashing";
-			 englishLocation="English Pregancy Messages/3rd Trimester/Handwashing";
+			 eweLocation="Noyawa/Ewe Pregnancy Messages/3rd Trimester/Handwashing";
+			 englishLocation="Noyawa/English Pregancy Messages/3rd Trimester/Handwashing";
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);

@@ -2,6 +2,7 @@ package org.grameenfoundation.noyawa.noyawaonthego.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -33,6 +34,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.grameenfoundation.noyawa.noyawaonthego.R;
 import org.grameenfoundation.noyawa.noyawaonthego.application.BaseActivity;
+import org.grameenfoundation.noyawa.noyawaonthego.application.ConnectionDetector;
 import org.grameenfoundation.noyawa.noyawaonthego.application.JsonParser;
 import org.grameenfoundation.noyawa.noyawaonthego.application.Noyawa;
 import org.json.JSONException;
@@ -82,6 +84,16 @@ public class NewClientRegistrationActivity extends BaseActivity  {
     private JsonParser jsonParser;
 
     private static String registerURL = "http://41.191.245.72/noyawagh/api/v2/register";
+
+    // flag for Internet connection status
+    Boolean isInternetPresent = false;
+
+    // Connection detector class
+    ConnectionDetector cd;
+
+    private SharedPreferences loginPref;
+
+    private String name;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -154,14 +166,32 @@ public class NewClientRegistrationActivity extends BaseActivity  {
 
             });
 
+        // creating connection detector class instance
+        cd = new ConnectionDetector(getApplicationContext());
+
         submit=(Button) findViewById(R.id.button_submit);
 	    	submit.setOnClickListener(new OnClickListener(){
 
 				@Override
 				public void onClick(View v) {
 
-					 postRegister(phone_number.getText().toString(),selected_gender,age.getText().toString(),selected_education,selected_channel,selected_language,selected_location_status,address.getText().toString(),selected_region);
-					
+                    // get Internet status
+                    isInternetPresent = cd.isConnectingToInternet();
+
+                    // check for Internet status
+                    if (isInternetPresent) {
+                        // Internet Connection is Present
+                        // make HTTP requests
+                        postRegister(phone_number.getText().toString(), selected_gender, age.getText().toString(), selected_education, selected_channel, selected_language, selected_location_status, address.getText().toString(), selected_region);
+
+                    } else {
+                        // Internet connection is not present
+                        // Ask user to connect to Internet
+                        cd.showAlertDialog(NewClientRegistrationActivity.this, "No Internet Connection",
+                                "You don't have internet connection.Please connect and try this again!", false);
+                    }
+
+
 				}
 	    		
 	    	});
@@ -171,6 +201,12 @@ public class NewClientRegistrationActivity extends BaseActivity  {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
         StrictMode.setThreadPolicy(policy);
+
+
+        loginPref=NewClientRegistrationActivity.this.getSharedPreferences("loginPrefs", MODE_WORLD_READABLE);
+        name=loginPref.getString("username", "name");
+
+
 	    	
 	}
 
@@ -210,20 +246,20 @@ public class NewClientRegistrationActivity extends BaseActivity  {
 
     public void populateLanguageSpinner(){
         String[] languages={"English",
-                "Ewe",
                 "Dagaare",
                 "Dagbani",
                 "Dangme",
+                "Ewe",
                 "Gonja",
                 "Hausa",
-                "Kassem",
+                "Kasim",
                 "Twi"};
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(NewClientRegistrationActivity.this,android.R.layout.simple_list_item_1,languages);
         language.setAdapter(adapter);
     }
 
     public void postRegister(String phoneNumber,String gender,String age,String education,String channel,String language,String location_status,String location,String region){
-        Log.d(TAG, "New client registration");
+        Log.d(TAG, "New client registration....");
 
         if (!validate()) {
             onRegisterFailed("check inputs and try again!");
@@ -239,7 +275,7 @@ public class NewClientRegistrationActivity extends BaseActivity  {
 
 
 
-            List<NameValuePair> nameValuePairs = new ArrayList<>(8);
+            List<NameValuePair> nameValuePairs = new ArrayList<>(9);
             nameValuePairs.add(new BasicNameValuePair("msisdn",phoneNumber));
             nameValuePairs.add(new BasicNameValuePair("gender",gender));
             nameValuePairs.add(new BasicNameValuePair("age",age));
@@ -249,6 +285,7 @@ public class NewClientRegistrationActivity extends BaseActivity  {
             nameValuePairs.add(new BasicNameValuePair("location_status", location_status));
             nameValuePairs.add(new BasicNameValuePair("location", location));
             nameValuePairs.add(new BasicNameValuePair("region", region));
+            nameValuePairs.add(new BasicNameValuePair("username", name));
 
 
 
@@ -259,7 +296,7 @@ public class NewClientRegistrationActivity extends BaseActivity  {
 
                 Log.i(TAG, "Message -> " + message);
 
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -270,7 +307,7 @@ public class NewClientRegistrationActivity extends BaseActivity  {
                 new Runnable() {
                     public void run() {
                         if (!error) {
-                            onRegisterSuccess();
+                            onRegisterSuccess(message);
                         } else {
                             onRegisterFailed(message);
                         }
@@ -283,16 +320,19 @@ public class NewClientRegistrationActivity extends BaseActivity  {
     }
 
 
-    public void onRegisterSuccess() {
+    public void onRegisterSuccess(String message) {
         submit.setEnabled(true);
 
-        Intent intent=new Intent(NewClientRegistrationActivity.this, MenuActivity.class);
-        startActivity(intent);
+        Toast.makeText(getBaseContext(),  message, Toast.LENGTH_LONG).show();
+
 
         finish();
     }
 
     public void onRegisterFailed(String message) {
+        if(message.isEmpty()){
+            message = "server problems, try again later.";
+        }
         Toast.makeText(getBaseContext(), "New client registration failed," + message, Toast.LENGTH_LONG).show();
 
         submit.setEnabled(true);
@@ -312,8 +352,16 @@ public class NewClientRegistrationActivity extends BaseActivity  {
             phone_number.setError(null);
         }
 
-        if (phoneNumber.isEmpty() || phoneNumber.length() < 10 || phoneNumber.length() > 12) {
-            phone_number.setError("between 4 and 10 alphanumeric characters");
+
+        if (ag.isEmpty() || Integer.parseInt(ag) <15 ||  Integer.parseInt(ag) >24 ) {
+            age.setError("enter a valid age, 15 to 24yrs");
+            valid = false;
+        } else {
+            age.setError(null);
+        }
+
+        if ( phoneNumber.length() < 10 ) {
+            phone_number.setError("equal to 10 numeric characters eg. 026xxxxxxx");
             valid = false;
         } else {
             phone_number.setError(null);

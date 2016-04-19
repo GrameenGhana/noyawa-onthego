@@ -128,18 +128,14 @@ public class VisualAidsViewPager extends FragmentActivity implements  ActionBar.
 						 			R.raw.thumb_two,
 						 			R.raw.thumb_three,
 						 			R.raw.thumb_four,
-						 			R.raw.thumb_five,
-						 			R.raw.thumb_six,
-						 			R.raw.thumb_seven};
-			 captions=new String[]{"Help Mother Stay Healthy",
-					 "Danger Signs in a Pregnant Woman",
-					 "Preparing for Facility Delivery",
-					 "Exclusive Breasfeeding",
-					 "Help Baby Stay Healthy",
-					 "Watch Danger Signs(Sick Baby) and Small Baby",
-					 "Help Mother Stay Healthy After Birth"};
+						 			R.raw.thumb_five};
+			 captions=new String[]{"How to use a condom",
+					 "Birth control 1",
+					 "Sexually transmitted diseases 1",
+					 "Birth control 2",
+					 "Sexually transmitted diseases 1"};
 			 	loginPref=getActivity().getSharedPreferences("loginPrefs", MODE_WORLD_READABLE);
-			 	username=loginPref.getString("fullname", "name");
+			 	username=loginPref.getString("username", "name");
 				type="Image";
 				module= Noyawa.MODULE_VISUAL_AIDS;
 				extras="";
@@ -255,9 +251,9 @@ public class VisualAidsViewPager extends FragmentActivity implements  ActionBar.
 	 }
 	 
 	 public static File getVideosLocation(){
-		 File files = new File("/storage/extSdCard/visual_aids_videos/"+getVideoLanguageLocation());
+		 File files = new File("/storage/extSdCard/Noyawa/visual_aids_videos/"+getVideoLanguageLocation());
 		 if(!files.exists()){
-			 files=new File(Environment.getExternalStorageDirectory(),"visual_aids_videos/"+getVideoLanguageLocation());
+			 files=new File(Environment.getExternalStorageDirectory(),"Noyawa/visual_aids_videos/"+getVideoLanguageLocation());
 		 }
 		return files;
 		 

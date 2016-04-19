@@ -24,6 +24,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.grameenfoundation.noyawa.noyawaonthego.R;
+import org.grameenfoundation.noyawa.noyawaonthego.application.ConnectionDetector;
 import org.grameenfoundation.noyawa.noyawaonthego.application.JsonParser;
 import org.grameenfoundation.noyawa.noyawaonthego.application.Noyawa;
 import org.grameenfoundation.noyawa.noyawaonthego.database.DatabaseHandler;
@@ -65,6 +66,12 @@ public class LoginActivity extends AppCompatActivity {
     private JsonParser jsonParser;
 
     private static String loginURL = "http://41.191.245.72/noyawagh/api/v2/login";
+
+    // flag for Internet connection status
+    Boolean isInternetPresent = false;
+
+    // Connection detector class
+    ConnectionDetector cd;
     
 
     @Override
@@ -75,12 +82,29 @@ public class LoginActivity extends AppCompatActivity {
 
         //create an instance of the database handler class
         db=new DatabaseHandler(LoginActivity.this);
-
+        // creating connection detector class instance
+        cd = new ConnectionDetector(getApplicationContext());
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                login();
+
+                // get Internet status
+                isInternetPresent = cd.isConnectingToInternet();
+
+                // check for Internet status
+                if (isInternetPresent) {
+                    // Internet Connection is Present
+                    // make HTTP requests
+                    login();
+                } else {
+                    // Internet connection is not present
+                    // Ask user to connect to Internet
+                    cd.showAlertDialog(LoginActivity.this, "No Internet Connection",
+                            "You don't have internet connection.Please connect and try this again!", false);
+                }
+
+
             }
         });
 
@@ -139,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Log.i(TAG, "Message -> " + message);
 
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 

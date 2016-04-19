@@ -23,7 +23,6 @@
                 android:layout_marginLeft="15dp"
                 android:text="@string/new_client_registration"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/Peach"
                 android:textSize="20sp"
                 android:textStyle="italic" />
         </RelativeLayout>
@@ -49,7 +48,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:phoneNumber="false"/>
         </LinearLayout>
 
         <LinearLayout

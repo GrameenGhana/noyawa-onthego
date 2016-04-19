@@ -71,8 +71,8 @@ public class FirstTrimesterActivity extends BaseActivity implements OnItemClickL
 			submodule="ANC";
 			module= Noyawa.MODULE_PREGNANCY_MESSAGES;
 			extras=Noyawa.EXTRAS_FIRST_TRIMESTER;
-			 eweLocation="Ewe Pregnancy Messages/1st Trimester/ANC";
-			 englishLocation="English Pregancy Messages/1st Trimester/ANC";
+			 eweLocation="Noyawa/Ewe Pregnancy Messages/1st Trimester/ANC";
+			 englishLocation="Noyawa/English Pregancy Messages/1st Trimester/ANC";
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);
@@ -88,8 +88,8 @@ public class FirstTrimesterActivity extends BaseActivity implements OnItemClickL
 			submodule="Normal Signs of Pregnancy";
 			module=Noyawa.MODULE_PREGNANCY_MESSAGES;
 			extras=Noyawa.EXTRAS_FIRST_TRIMESTER;
-			 eweLocation="Ewe Pregnancy Messages/1st Trimester/Nutrition";
-			 englishLocation="English Pregancy Messages/1st Trimester/Nutrition";
+			 eweLocation="Noyawa/Ewe Pregnancy Messages/1st Trimester/Nutrition";
+			 englishLocation="Noyawa/English Pregancy Messages/1st Trimester/Nutrition";
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);
@@ -105,8 +105,8 @@ public class FirstTrimesterActivity extends BaseActivity implements OnItemClickL
 			submodule="Normal Signs of Pregnancy";
 			module=Noyawa.MODULE_PREGNANCY_MESSAGES;
 			extras=Noyawa.EXTRAS_FIRST_TRIMESTER;			
-			 eweLocation="Ewe Pregnancy Messages/1st Trimester/Normal Signs of Pregnancy";
-			 englishLocation="English Pregancy Messages/1st Trimester/Normal Signs of Pregnancy";
+			 eweLocation="Noyawa/Ewe Pregnancy Messages/1st Trimester/Normal Signs of Pregnancy";
+			 englishLocation="Noyawa/English Pregancy Messages/1st Trimester/Normal Signs of Pregnancy";
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);
@@ -122,8 +122,8 @@ public class FirstTrimesterActivity extends BaseActivity implements OnItemClickL
 			submodule="Malaria during Pregnancy";
 			module=Noyawa.MODULE_PREGNANCY_MESSAGES;
 			extras=Noyawa.EXTRAS_FIRST_TRIMESTER;
-			 eweLocation="Ewe Pregnancy Messages/1st Trimester/Malaria during Pregnancy";
-			 englishLocation="English Pregancy Messages/1st Trimester/Malaria during Pregnancy";
+			 eweLocation="Noyawa/Ewe Pregnancy Messages/1st Trimester/Malaria during Pregnancy";
+			 englishLocation="Noyawa/English Pregancy Messages/1st Trimester/Malaria during Pregnancy";
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);
@@ -139,8 +139,8 @@ public class FirstTrimesterActivity extends BaseActivity implements OnItemClickL
 			submodule="Danger Signs of Pregnancy";
 			module=Noyawa.MODULE_PREGNANCY_MESSAGES;
 			extras=Noyawa.EXTRAS_FIRST_TRIMESTER;
-			 eweLocation="Ewe Pregnancy Messages/1st Trimester/Danger Signs of Pregnancy";
-			 englishLocation="English Pregancy Messages/1st Trimester/Danger Signs of Pregnancy";
+			 eweLocation="Noyawa/Ewe Pregnancy Messages/1st Trimester/Danger Signs of Pregnancy";
+			 englishLocation="Noyawa/English Pregancy Messages/1st Trimester/Danger Signs of Pregnancy";
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);
@@ -156,8 +156,8 @@ public class FirstTrimesterActivity extends BaseActivity implements OnItemClickL
 			submodule="Medicine Awareness and Facility Delivery";
 			module=Noyawa.MODULE_PREGNANCY_MESSAGES;
 			extras=Noyawa.EXTRAS_FIRST_TRIMESTER;
-			 eweLocation="Ewe Pregnancy Messages/1st Trimester/Facility Delivery and Medicine Awareness";
-			 englishLocation="English Pregancy Messages/1st Trimester/Facility Delivery and Medicine Awareness";
+			 eweLocation="Noyawa/Ewe Pregnancy Messages/1st Trimester/Facility Delivery and Medicine Awareness";
+			 englishLocation="Noyawa/English Pregancy Messages/1st Trimester/Facility Delivery and Medicine Awareness";
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);

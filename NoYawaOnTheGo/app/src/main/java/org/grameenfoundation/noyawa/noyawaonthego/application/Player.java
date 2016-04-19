@@ -156,34 +156,91 @@ public class Player{
 				    return fileslist;
 			   }
 
-	public  String[] loadFilesFromPhone(String Englishlocation,String Ewelocation){
+	public  String[] loadFilesFromPhone(String Englishlocation,String Ewelocation,String DagbaniLocation,String DagareLocation,String DangbeLocation,String GonjaLocation,String HausaLocation,String KasimLocation,String TwiLocation){
 		String[] fileslist = null;
 		ArrayList<String> f = new ArrayList<String>();
-
+		File files = null;
 
 		try {
 			if(getLanguage().equalsIgnoreCase("Ewe")){
-				File files = new File(Ewelocation);
+				files = new File(Environment.getExternalStorageDirectory(),Ewelocation);
 				if(!files.exists()){
-					files=new File(Environment.getExternalStorageDirectory(),Ewelocation);
+					files=new File("/mnt/extSdCard/",Ewelocation);
 				}
 
-				fileslist = files.list();
-				for(int i=0;i<fileslist.length;i++){
-					f.add(fileslist[i]);
-				}
 
 			}else if(getLanguage().equalsIgnoreCase("English")){
-				File files = new File(Englishlocation);
+				files = new File(Environment.getExternalStorageDirectory(),Englishlocation);
 				if(!files.exists()){
-					files=new File(Environment.getExternalStorageDirectory(),Englishlocation);
+					files=new File("/mnt/extSdCard/",Englishlocation);
 				}
 
-				fileslist = files.list();
-				for(int i=0;i<fileslist.length;i++){
-					f.add(fileslist[i]);
-				}
+
 			}
+			else if(getLanguage().equalsIgnoreCase("Dagbani")){
+				files = new File(Environment.getExternalStorageDirectory(),DagbaniLocation);
+				if(!files.exists()){
+					files=new File("/mnt/extSdCard/",DagbaniLocation);
+				}
+
+
+			}
+			else if(getLanguage().equalsIgnoreCase("Dagare")){
+				files = new File(Environment.getExternalStorageDirectory(),DagareLocation);
+				if(!files.exists()){
+					files=new File("/mnt/extSdCard/",DagareLocation);
+				}
+
+
+			}
+			else if(getLanguage().equalsIgnoreCase("Dangbe")){
+				 files = new File(Environment.getExternalStorageDirectory(),DangbeLocation);
+				if(!files.exists()){
+					files=new File("/mnt/extSdCard/",DangbeLocation);
+				}
+
+
+			}
+			else if(getLanguage().equalsIgnoreCase("Gonja")){
+				files = new File(Environment.getExternalStorageDirectory(),GonjaLocation);
+				if(!files.exists()){
+					files=new File("/mnt/extSdCard/",GonjaLocation);
+				}
+
+
+			}
+			else if(getLanguage().equalsIgnoreCase("Hausa")){
+				files = new File(Environment.getExternalStorageDirectory(),HausaLocation);
+				if(!files.exists()){
+					files=new File("/mnt/extSdCard/",HausaLocation);
+				}
+
+
+			}
+			else if(getLanguage().equalsIgnoreCase("Kasim")){
+				files = new File(Environment.getExternalStorageDirectory(),KasimLocation);
+				if(!files.exists()){
+					files=new File("/mnt/extSdCard/",KasimLocation);
+				}
+
+
+			}
+			else if(getLanguage().equalsIgnoreCase("Twi")){
+				 files = new File(Environment.getExternalStorageDirectory(),TwiLocation);
+				if(!files.exists()){
+					files=new File("/mnt/extSdCard/",TwiLocation);
+				}
+
+
+			}
+
+
+
+			fileslist = files.list();
+			for(int i=0;i<fileslist.length;i++){
+				f.add(fileslist[i]);
+			}
+
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -194,15 +251,50 @@ public class Player{
 
 
 
-			   public String getFilePath(String Ewelocation,String Englishlocation){
+			   public String getFilePath(String Ewelocation,String Englishlocation,String DagbaniLocation,String DagareLocation,String DangbeLocation,String GonjaLocation,String HausaLocation,String KasimLocation,String TwiLocation){
 				   String path=null;
+
+
+				   System.out.println("Language :" +getLanguage());
+
 				 	if(getLanguage().equalsIgnoreCase("Ewe")){
-				 		System.out.println(getLanguage());
 				 		path=Ewelocation+ File.separator;
 			    	}else if(getLanguage().equalsIgnoreCase("English")){
-			    		System.out.println(getLanguage());
+
 			    		path=Englishlocation+ File.separator;
-			    	}
+
+			    	}else if(getLanguage().equalsIgnoreCase("Dagbani")){
+
+						path=DagbaniLocation+ File.separator;
+
+					}else if(getLanguage().equalsIgnoreCase("Dagare")){
+
+						path=DagareLocation+ File.separator;
+
+					}else if(getLanguage().equalsIgnoreCase("Dangbe")){
+
+						path=DangbeLocation+ File.separator;
+
+					}else if(getLanguage().equalsIgnoreCase("Gonja")){
+
+						path=GonjaLocation+ File.separator;
+
+					}else if(getLanguage().equalsIgnoreCase("Hausa")){
+
+						path=HausaLocation+ File.separator;
+
+					}else if(getLanguage().equalsIgnoreCase("Kasim")){
+
+						path=KasimLocation+ File.separator;
+
+					}else if(getLanguage().equalsIgnoreCase("Twi")){
+
+						path=TwiLocation+ File.separator;
+
+					}
+
+
+				   System.out.println("Path :" + path);
 				   
 				   
 				   return path;

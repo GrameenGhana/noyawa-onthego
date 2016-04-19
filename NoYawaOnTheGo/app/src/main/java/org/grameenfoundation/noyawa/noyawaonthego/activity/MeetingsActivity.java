@@ -35,6 +35,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.grameenfoundation.noyawa.noyawaonthego.R;
 import org.grameenfoundation.noyawa.noyawaonthego.application.BaseActivity;
+import org.grameenfoundation.noyawa.noyawaonthego.application.ConnectionDetector;
 import org.grameenfoundation.noyawa.noyawaonthego.application.JsonParser;
 import org.grameenfoundation.noyawa.noyawaonthego.application.Noyawa;
 import org.grameenfoundation.noyawa.noyawaonthego.database.DatabaseHelper;
@@ -60,12 +61,17 @@ public class MeetingsActivity extends BaseActivity {
     @Bind(R.id.editText_address) EditText address;
     @Bind(R.id.editText_male_attendance) EditText male_attendance;
     @Bind(R.id.editText_female_attendance) EditText female_attendance;
+    @Bind(R.id.editText_comments) EditText comments;
+
+
+    @Bind(R.id.spinner_meeting_title) Spinner meeting_title;
 
     @Bind(R.id.spinner_region) Spinner region;
 
     @Bind(R.id.button_submit) Button submit;
 
     private String selected_region;
+    private String selected_meeting_title;
 
 
     private static final String TAG = "MeetingsActivity";
@@ -80,6 +86,13 @@ public class MeetingsActivity extends BaseActivity {
 
     private SharedPreferences loginPref;
     private String name;
+
+
+    // flag for Internet connection status
+    Boolean isInternetPresent = false;
+
+    // Connection detector class
+    ConnectionDetector cd;
 
 
     /** Called when the activity is first created. */
@@ -104,13 +117,44 @@ public class MeetingsActivity extends BaseActivity {
 
         });
 
+        populateMeetingTitlesSpinner();
+        meeting_title.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                selected_meeting_title = meeting_title.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+
+            }
+
+        });
 
 
+        // creating connection detector class instance
+        cd = new ConnectionDetector(getApplicationContext());
         submit.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                startMeeting();
+
+
+                // get Internet status
+                isInternetPresent = cd.isConnectingToInternet();
+
+                // check for Internet status
+                if (isInternetPresent) {
+                    // Internet Connection is Present
+                    // make HTTP requests
+                    startMeeting();
+                } else {
+                    // Internet connection is not present
+                    // Ask user to connect to Internet
+                    cd.showAlertDialog(MeetingsActivity.this, "No Internet Connection",
+                            "You don't have internet connection.Please connect and try this again!", false);
+                }
 
             }
 
@@ -125,6 +169,19 @@ public class MeetingsActivity extends BaseActivity {
         loginPref=MeetingsActivity.this.getSharedPreferences("loginPrefs", MODE_WORLD_READABLE);
         name=loginPref.getString("username", "name");
 
+    }
+
+    public void populateMeetingTitlesSpinner(){
+        String[] titles={"STI",
+                "Pregnancy",
+                "Abortion",
+                "Contraceptive",
+                "Empowerment",
+                "Anatomy & Physiology",
+                "Absitinence",
+                "Rape","Family Planning","Other"};
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(MeetingsActivity.this,android.R.layout.simple_list_item_1,titles);
+        meeting_title.setAdapter(adapter);
     }
 
 
@@ -169,13 +226,15 @@ public class MeetingsActivity extends BaseActivity {
         String currentDateandTime = sdf.format(new Date());
 
 
-            List<NameValuePair> nameValuePairs = new ArrayList<>(8);
+            List<NameValuePair> nameValuePairs = new ArrayList<>(6);
             nameValuePairs.add(new BasicNameValuePair("male_attendance",male_attendance.getText().toString()));
             nameValuePairs.add(new BasicNameValuePair("female_attendance",female_attendance.getText().toString()));
             nameValuePairs.add(new BasicNameValuePair("location",address.getText().toString()));
             nameValuePairs.add(new BasicNameValuePair("start_time",currentDateandTime));
             nameValuePairs.add(new BasicNameValuePair("region",selected_region));
+            nameValuePairs.add(new BasicNameValuePair("meeting_title",selected_meeting_title));
             nameValuePairs.add(new BasicNameValuePair("user_id",name));
+            nameValuePairs.add(new BasicNameValuePair("comments",comments.getText().toString()));
 
 
 
@@ -186,7 +245,7 @@ public class MeetingsActivity extends BaseActivity {
 
                 Log.i(TAG, "Message -> " + message);
 
-            } catch (JSONException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -196,7 +255,7 @@ public class MeetingsActivity extends BaseActivity {
                     public void run() {
 
                         if (!error) {
-                            onStartSuccess();
+                            onStartSuccess(message);
                         }else {
                             onStartFailed(message);
                         }
@@ -209,16 +268,20 @@ public class MeetingsActivity extends BaseActivity {
     }
 
 
-    public void onStartSuccess() {
+    public void onStartSuccess(String message) {
         submit.setEnabled(true);
 
-        Intent intent=new Intent(MeetingsActivity.this, MenuActivity.class);
-        startActivity(intent);
+        Toast.makeText(getBaseContext(),  message, Toast.LENGTH_LONG).show();
+
 
         finish();
     }
 
-    public void onStartFailed(String meesage) {
+    public void onStartFailed(String message) {
+        if(message.isEmpty()){
+            message = "server problems, try again later.";
+        }
+
         Toast.makeText(getBaseContext(), "Start meeting failed,"+message, Toast.LENGTH_LONG).show();
 
         submit.setEnabled(true);

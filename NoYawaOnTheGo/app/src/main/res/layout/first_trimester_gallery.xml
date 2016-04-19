@@ -18,7 +18,6 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:text="@string/select_audio"
-            android:textColor="@color/Peach"
             android:textSize="20sp"
             android:textStyle="italic" />
 

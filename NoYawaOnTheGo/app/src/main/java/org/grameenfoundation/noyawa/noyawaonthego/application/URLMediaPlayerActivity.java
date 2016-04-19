@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.view.Gravity;
@@ -23,6 +25,7 @@ import android.widget.Toast;
 import org.grameenfoundation.noyawa.noyawaonthego.R;
 import org.grameenfoundation.noyawa.noyawaonthego.database.DatabaseHandler;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -67,11 +70,17 @@ public class URLMediaPlayerActivity extends Activity {
         // try to load data and play
         try {
         	 mediaPlayer.setWakeMode(getApplicationContext(), PowerManager.FULL_WAKE_LOCK);
-        	AssetFileDescriptor descriptor = URLMediaPlayerActivity.this.getAssets().openFd(audioFile);
-            long start = descriptor.getStartOffset();
-            long end = descriptor.getLength();
+        	//AssetFileDescriptor descriptor = URLMediaPlayerActivity.this.getAssets().openFd(audioFile);
+            //long start = descriptor.getStartOffset();
+            //long end = descriptor.getLength();
             // give data to mediaPlayer
-            mediaPlayer.setDataSource(descriptor.getFileDescriptor(), start, end);
+            //mediaPlayer.setDataSource(descriptor.getFileDescriptor(), start, end);
+            File file = new File(Environment.getExternalStorageDirectory(),audioFile);
+            if(!file.exists()){
+                file=new File("/mnt/extSdCard/",audioFile);
+            }
+            mediaPlayer.setDataSource(this, Uri.fromFile(file));
+
             // media player asynchronous preparation
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mediaPlayer.prepare();

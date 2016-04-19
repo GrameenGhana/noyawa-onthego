@@ -51,14 +51,23 @@ public class AudioGalleryActivity extends BaseActivity implements OnItemClickLis
 			String ewePath=eweLocation+ File.separator;
 			String englishLocation=intent.getStringExtra(Noyawa.ENGLISH_AUDIO_LOCATION);
 			String englishPath=englishLocation+ File.separator;
+
+			 String dagbaniLocation=intent.getStringExtra(Noyawa.DAGBANI_AUDIO_LOCATION);
+			 String dagareLocation=intent.getStringExtra(Noyawa.DAGARE_AUDIO_LOCATION);
+			 String dangbeLocation=intent.getStringExtra(Noyawa.DANGBE_AUDIO_LOCATION);
+			 String gonjaLocation=intent.getStringExtra(Noyawa.GONJA_AUDIO_LOCATION);
+			 String hausaLocation=intent.getStringExtra(Noyawa.HAUSA_AUDIO_LOCATION);
+			 String kasimLocation=intent.getStringExtra(Noyawa.KASIM_AUDIO_LOCATION);
+			 String twiLocation=intent.getStringExtra(Noyawa.TWI_AUDIO_LOCATION);
+
 			 //loading name of files
 			//songList=player.loadAssets(englishLocation,eweLocation,
 	 		//		  		ewePath,englishPath);
 
-	 		songList=player.loadFilesFromPhone(englishLocation,eweLocation);
+	 		songList=player.loadFilesFromPhone(englishLocation,eweLocation,dagbaniLocation,dagareLocation,dangbeLocation,gonjaLocation,hausaLocation,kasimLocation,twiLocation);
 
 			//loading the path
-			path=player.getFilePath(eweLocation, englishLocation);
+			path=player.getFilePath(eweLocation, englishLocation,dagbaniLocation,dagareLocation,dangbeLocation,gonjaLocation,hausaLocation,kasimLocation,twiLocation);
 			populateImages();
 			populateSongNames();
 			db=new DatabaseHandler(AudioGalleryActivity.this);
@@ -95,6 +104,8 @@ public class AudioGalleryActivity extends BaseActivity implements OnItemClickLis
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
+			System.out.println("File to be played : " + songList[position]);
+
 			Intent intent=new Intent(AudioGalleryActivity.this,URLMediaPlayerActivity.class);
 			intent.putExtra(Noyawa.AUDIO_URL, path+songList[position]);
 			intent.putExtra(Noyawa.TYPE, type);

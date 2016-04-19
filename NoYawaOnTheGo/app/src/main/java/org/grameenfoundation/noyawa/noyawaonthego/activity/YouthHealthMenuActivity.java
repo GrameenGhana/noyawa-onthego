@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import org.grameenfoundation.noyawa.noyawaonthego.R;
 import org.grameenfoundation.noyawa.noyawaonthego.adapter.TrimesterListViewAdapter;
@@ -23,19 +24,69 @@ public class YouthHealthMenuActivity extends BaseActivity implements OnItemClick
 	private String submodule;
 	private String module;
 	private String extras;
+
+	private ToggleButton myToggleButton;
+	private TextView myToggleStatus;
+
+	// toggle upper button (20 - 24yrs switch) checker
+	private Boolean toggleUpper = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.submenu_activity);
-	    
-	    listView=(ListView) findViewById(R.id.pregnancy_menu_listView);
-	    String[] values={"Abstinence",
-	    		"Rape",
-	    		"Teenage Pregnancy"};
-	    int[] images={R.drawable.abstinence,
-	    		R.drawable.rape,
-	    		R.drawable.teenage_pregnancy};
+
+		//get references to the text view and th toggle button
+		myToggleStatus = (TextView) findViewById(R.id.toggleStatus);
+		myToggleButton = (ToggleButton) findViewById(R.id.toggleButton1);
+
+		//attach onclick listener to the button
+		myToggleButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				switch (v.getId()) {
+					case R.id.toggleButton1:
+
+						//onclick check the current status of the toggle button and do necessary processing
+						if(myToggleButton.isChecked()){
+							myToggleStatus.setText("Currently on 20 - 24 yrs");
+							toggleUpper = true;
+						}
+						else{
+							myToggleStatus.setText("Currently on 15 - 19 yrs");
+							toggleUpper = false;
+						}
+						break;
+
+				}
+
+			}
+		});
+
+		//display the current status of the button
+		if(myToggleButton.isChecked()){
+			myToggleStatus.setText("Currently on 20 - 24 yrs");
+			toggleUpper = true;
+		}
+		else{
+			myToggleStatus.setText("Currently on 15 - 19 yrs ");
+			toggleUpper = false;
+		}
+
+
+		listView=(ListView) findViewById(R.id.pregnancy_menu_listView);
+	    String[] values={"STIs",
+	    		"Pregnancy & Abortion",
+	    		"Contraceptive",
+				"Empowerment",
+				"Anatomy & Physiology and WIS"};
+	    int[] images={R.drawable.player_icon,
+	    		R.drawable.player_icon,
+	    		R.drawable.player_icon,
+				R.drawable.player_icon,
+				R.drawable.player_icon};
+
 	    header=(TextView) findViewById(R.id.textView1);
 	    header.setText("Youth Sexual Health Messages");
 	    Typeface custom_font = Typeface.createFromAsset(YouthHealthMenuActivity.this.getAssets(),
@@ -54,58 +105,194 @@ public class YouthHealthMenuActivity extends BaseActivity implements OnItemClick
 		Intent intent;
 		String eweLocation;
 		String englishLocation;
+		String dagbaniLocation;
+		String dagareLocation;
+		String dangbeLocation;
+		String gonjaLocation;
+		String hausaLocation;
+		String kasimLocation;
+		String twiLocation;
+		// check on upper or lower folder location
+		String toggle;
+
+		if(toggleUpper){
+			toggle= "Upper";
+		}else{
+			toggle= "Lower";
+		}
+
+
 		switch (position){
 		case 0:
 			//intent=new Intent(YouthHealthMenuActivity.this, YouthHealthAbstinenceAudioGallery.class);
 			intent=new Intent(YouthHealthMenuActivity.this, AudioGalleryActivity.class);
 			type="Audio";
-			submodule="Abstinence";
+			submodule="STIs";
 			module= Noyawa.MODULE_YOUTH_SEXUAL_HEALTH;
 			extras=" ";
-			 eweLocation="Ewe Health Drama Series/Abstinence";
-			 englishLocation="English Health Drama Series/Abstinence";
+			 eweLocation="Noyawa/Voice Health Messages/EWE/STIs "+toggle;
+			 englishLocation="Noyawa/Voice Health Messages/ENGLISH/STIs "+toggle;
+			dagbaniLocation="Noyawa/Voice Health Messages/DAGBANI/STIs "+toggle;
+			dagareLocation="Noyawa/Voice Health Messages/DAGARE/STIs "+toggle;
+			dangbeLocation="Noyawa/Voice Health Messages/DANGBE/STIs "+toggle;
+			gonjaLocation="Noyawa/Voice Health Messages/GONJA/STIs "+toggle;
+			hausaLocation="Noyawa/Voice Health Messages/HAUSA/STIs "+toggle;
+			kasimLocation="Noyawa/Voice Health Messages/KASIM/STIs "+toggle;
+			twiLocation="Noyawa/Voice Health Messages/TWI/STIs "+toggle;
+
+
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);
 				intent.putExtra(Noyawa.EXTRAS,extras);
 				intent.putExtra(Noyawa.EWE_AUDIO_LOCATION, eweLocation);
 				intent.putExtra(Noyawa.ENGLISH_AUDIO_LOCATION, englishLocation);
+			    intent.putExtra(Noyawa.DAGBANI_AUDIO_LOCATION, dagbaniLocation);
+			intent.putExtra(Noyawa.DAGARE_AUDIO_LOCATION, dagareLocation);
+			intent.putExtra(Noyawa.DANGBE_AUDIO_LOCATION, dangbeLocation);
+			intent.putExtra(Noyawa.GONJA_AUDIO_LOCATION, gonjaLocation);
+			intent.putExtra(Noyawa.HAUSA_AUDIO_LOCATION, hausaLocation);
+			intent.putExtra(Noyawa.KASIM_AUDIO_LOCATION, kasimLocation);
+			intent.putExtra(Noyawa.TWI_AUDIO_LOCATION, twiLocation);
+
 			startActivity(intent);
 			break;
+
 		case 1	:
 			//intent=new Intent(YouthHealthMenuActivity.this, YouthHealthRapeAudioGallery.class);
 			intent=new Intent(YouthHealthMenuActivity.this, AudioGalleryActivity.class);
 			type="Audio";
-			submodule="Rape";
+			submodule="Pregnancy & Abortion";
 			module=Noyawa.MODULE_YOUTH_SEXUAL_HEALTH;
 			extras="";
-			 eweLocation="Ewe Health Drama Series/Rape";
-			 englishLocation="English Health Drama Series/Rape";
+			eweLocation="Noyawa/Voice Health Messages/EWE/Pregnancy&Abortion "+toggle;
+			englishLocation="Noyawa/Voice Health Messages/ENGLISH/Pregnancy&Abortion "+toggle;
+			dagbaniLocation="Noyawa/Voice Health Messages/DAGBANI/Pregnancy&Abortion "+toggle;
+			dagareLocation="Noyawa/Voice Health Messages/DAGARE/Pregnancy&Abortion "+toggle;
+			dangbeLocation="Noyawa/Voice Health Messages/DANGBE/Pregnancy&Abortion "+toggle;
+			gonjaLocation="Noyawa/Voice Health Messages/GONJA/Pregnancy&Abortion "+toggle;
+			hausaLocation="Noyawa/Voice Health Messages/HAUSA/Pregnancy&Abortion "+toggle;
+			kasimLocation="Noyawa/Voice Health Messages/KASIM/Pregnancy&Abortion "+toggle;
+			twiLocation="Noyawa/Voice Health Messages/TWI/Pregnancy&Abortion "+toggle;
+
 			 intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);
 				intent.putExtra(Noyawa.EXTRAS,extras);
-				intent.putExtra(Noyawa.EWE_AUDIO_LOCATION, eweLocation);
-				intent.putExtra(Noyawa.ENGLISH_AUDIO_LOCATION, englishLocation);
+			intent.putExtra(Noyawa.EWE_AUDIO_LOCATION, eweLocation);
+			intent.putExtra(Noyawa.ENGLISH_AUDIO_LOCATION, englishLocation);
+			intent.putExtra(Noyawa.DAGBANI_AUDIO_LOCATION, dagbaniLocation);
+			intent.putExtra(Noyawa.DAGARE_AUDIO_LOCATION, dagareLocation);
+			intent.putExtra(Noyawa.DANGBE_AUDIO_LOCATION, dangbeLocation);
+			intent.putExtra(Noyawa.GONJA_AUDIO_LOCATION, gonjaLocation);
+			intent.putExtra(Noyawa.HAUSA_AUDIO_LOCATION, hausaLocation);
+			intent.putExtra(Noyawa.KASIM_AUDIO_LOCATION, kasimLocation);
+			intent.putExtra(Noyawa.TWI_AUDIO_LOCATION, twiLocation);
+
 			startActivity(intent);
 			break;
+
 		case 2:
 			//intent=new Intent(YouthHealthMenuActivity.this, YouthHealthTeenagePregnancyAudioGallery.class);
 			intent=new Intent(YouthHealthMenuActivity.this, AudioGalleryActivity.class);
 			type="Audio";
-			submodule="Teenage pregnancy";
+			submodule="Contraceptive";
 			module=Noyawa.MODULE_YOUTH_SEXUAL_HEALTH;
 			extras=" ";
-			 eweLocation="Ewe Health Drama Series/Teenage pregnancy";
-			 englishLocation="English Health Drama Series/Teenage pregnancy";
+			eweLocation="Noyawa/Voice Health Messages/EWE/Contraceptives "+toggle;
+			englishLocation="Noyawa/Voice Health Messages/ENGLISH/Contraceptives "+toggle;
+			dagbaniLocation="Noyawa/Voice Health Messages/DAGBANI/Contraceptives "+toggle;
+			dagareLocation="Noyawa/Voice Health Messages/DAGARE/Contraceptives "+toggle;
+			dangbeLocation="Noyawa/Voice Health Messages/DANGBE/Contraceptives "+toggle;
+			gonjaLocation="Noyawa/Voice Health Messages/GONJA/Contraceptives "+toggle;
+			hausaLocation="Noyawa/Voice Health Messages/HAUSA/Contraceptives "+toggle;
+			kasimLocation="Noyawa/Voice Health Messages/KASIM/Contraceptives "+toggle;
+			twiLocation="Noyawa/Voice Health Messages/TWI/Contraceptives "+toggle;
+
 			 intent.putExtra(Noyawa.TYPE, type);
+				intent.putExtra(Noyawa.SUB_MODULE, submodule);
+				intent.putExtra(Noyawa.MODULE, module);
+				intent.putExtra(Noyawa.EXTRAS,extras);
+			intent.putExtra(Noyawa.EWE_AUDIO_LOCATION, eweLocation);
+			intent.putExtra(Noyawa.ENGLISH_AUDIO_LOCATION, englishLocation);
+			intent.putExtra(Noyawa.DAGBANI_AUDIO_LOCATION, dagbaniLocation);
+			intent.putExtra(Noyawa.DAGARE_AUDIO_LOCATION, dagareLocation);
+			intent.putExtra(Noyawa.DANGBE_AUDIO_LOCATION, dangbeLocation);
+			intent.putExtra(Noyawa.GONJA_AUDIO_LOCATION, gonjaLocation);
+			intent.putExtra(Noyawa.HAUSA_AUDIO_LOCATION, hausaLocation);
+			intent.putExtra(Noyawa.KASIM_AUDIO_LOCATION, kasimLocation);
+			intent.putExtra(Noyawa.TWI_AUDIO_LOCATION, twiLocation);
+
+			startActivity(intent);
+			break;
+
+		case 3:
+				//intent=new Intent(YouthHealthMenuActivity.this, YouthHealthTeenagePregnancyAudioGallery.class);
+				intent=new Intent(YouthHealthMenuActivity.this, AudioGalleryActivity.class);
+				type="Audio";
+				submodule="Empowerment";
+				module=Noyawa.MODULE_YOUTH_SEXUAL_HEALTH;
+				extras=" ";
+				eweLocation="Noyawa/Voice Health Messages/EWE/Empowerment "+toggle;
+				englishLocation="Noyawa/Voice Health Messages/ENGLISH/Empowerment "+toggle;
+				dagbaniLocation="Noyawa/Voice Health Messages/DAGBANI/Empowerment "+toggle;
+				dagareLocation="Noyawa/Voice Health Messages/DAGARE/Empowerment "+toggle;
+				dangbeLocation="Noyawa/Voice Health Messages/DANGBE/Empowerment "+toggle;
+				gonjaLocation="Noyawa/Voice Health Messages/GONJA/Empowerment "+toggle;
+				hausaLocation="Noyawa/Voice Health Messages/HAUSA/Empowerment "+toggle;
+				kasimLocation="Noyawa/Voice Health Messages/KASIM/Empowerment "+toggle;
+				twiLocation="Noyawa/Voice Health Messages/TWI/Empowerment "+toggle;
+
+				intent.putExtra(Noyawa.TYPE, type);
 				intent.putExtra(Noyawa.SUB_MODULE, submodule);
 				intent.putExtra(Noyawa.MODULE, module);
 				intent.putExtra(Noyawa.EXTRAS,extras);
 				intent.putExtra(Noyawa.EWE_AUDIO_LOCATION, eweLocation);
 				intent.putExtra(Noyawa.ENGLISH_AUDIO_LOCATION, englishLocation);
-			startActivity(intent);
-			break;	
+				intent.putExtra(Noyawa.DAGBANI_AUDIO_LOCATION, dagbaniLocation);
+				intent.putExtra(Noyawa.DAGARE_AUDIO_LOCATION, dagareLocation);
+				intent.putExtra(Noyawa.DANGBE_AUDIO_LOCATION, dangbeLocation);
+				intent.putExtra(Noyawa.GONJA_AUDIO_LOCATION, gonjaLocation);
+				intent.putExtra(Noyawa.HAUSA_AUDIO_LOCATION, hausaLocation);
+				intent.putExtra(Noyawa.KASIM_AUDIO_LOCATION, kasimLocation);
+				intent.putExtra(Noyawa.TWI_AUDIO_LOCATION, twiLocation);
+
+				startActivity(intent);
+				break;
+
+		case 4:
+				//intent=new Intent(YouthHealthMenuActivity.this, YouthHealthTeenagePregnancyAudioGallery.class);
+				intent=new Intent(YouthHealthMenuActivity.this, AudioGalleryActivity.class);
+				type="Audio";
+				submodule="Anatomy & Physiology and WIS";
+				module=Noyawa.MODULE_YOUTH_SEXUAL_HEALTH;
+				extras=" ";
+				eweLocation="Noyawa/Voice Health Messages/EWE/A&P and WIS "+toggle;
+				englishLocation="Noyawa/Voice Health Messages/ENGLISH/A&P and WIS "+toggle;
+				dagbaniLocation="Noyawa/Voice Health Messages/DAGBANI/A&P and WIS "+toggle;
+				dagareLocation="Noyawa/Voice Health Messages/DAGARE/A&P and WIS "+toggle;
+				dangbeLocation="Noyawa/Voice Health Messages/DANGBE/A&P and WIS "+toggle;
+				gonjaLocation="Noyawa/Voice Health Messages/GONJA/A&P and WIS "+toggle;
+				hausaLocation="Noyawa/Voice Health Messages/HAUSA/A&P and WIS "+toggle;
+				kasimLocation="Noyawa/Voice Health Messages/KASIM/A&P and WIS "+toggle;
+				twiLocation="Noyawa/Voice Health Messages/TWI/A&P and WIS "+toggle;
+
+				intent.putExtra(Noyawa.TYPE, type);
+				intent.putExtra(Noyawa.SUB_MODULE, submodule);
+				intent.putExtra(Noyawa.MODULE, module);
+				intent.putExtra(Noyawa.EXTRAS,extras);
+				intent.putExtra(Noyawa.EWE_AUDIO_LOCATION, eweLocation);
+				intent.putExtra(Noyawa.ENGLISH_AUDIO_LOCATION, englishLocation);
+				intent.putExtra(Noyawa.DAGBANI_AUDIO_LOCATION, dagbaniLocation);
+				intent.putExtra(Noyawa.DAGARE_AUDIO_LOCATION, dagareLocation);
+				intent.putExtra(Noyawa.DANGBE_AUDIO_LOCATION, dangbeLocation);
+				intent.putExtra(Noyawa.GONJA_AUDIO_LOCATION, gonjaLocation);
+				intent.putExtra(Noyawa.HAUSA_AUDIO_LOCATION, hausaLocation);
+				intent.putExtra(Noyawa.KASIM_AUDIO_LOCATION, kasimLocation);
+				intent.putExtra(Noyawa.TWI_AUDIO_LOCATION, twiLocation);
+
+				startActivity(intent);
+				break;
 		}	
 	}
 	

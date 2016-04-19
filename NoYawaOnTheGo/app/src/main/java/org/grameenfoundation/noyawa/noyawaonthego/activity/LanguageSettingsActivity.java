@@ -61,6 +61,7 @@ public class LanguageSettingsActivity extends Activity implements OnItemClickLis
 		final Dialog dialog = new Dialog(LanguageSettingsActivity.this);
 		dialog.setContentView(R.layout.language_settings_activity);
 		dialog.setTitle("Select a language");
+
 	    
 	    languageOptions=(RadioGroup) dialog.findViewById(R.id.language_options);
 	    languageEnglishButton=(RadioButton) dialog.findViewById(R.id.language_english);
@@ -77,72 +78,54 @@ public class LanguageSettingsActivity extends Activity implements OnItemClickLis
 					SharedPreferences.Editor prefsEditor = myPrefs.edit();
 					prefsEditor.putString("option", "English");
 					prefsEditor.commit();
-					 Intent mainIntent = new Intent(LanguageSettingsActivity.this,MenuActivity.class);
-					 LanguageSettingsActivity.this.startActivity(mainIntent);
 					 LanguageSettingsActivity.this.finish();
 				}else if(languageOptions.getCheckedRadioButtonId()==R.id.language_ewe){
 					SharedPreferences myPrefs = LanguageSettingsActivity.this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
 					SharedPreferences.Editor prefsEditor = myPrefs.edit();
 					prefsEditor.putString("option", "Ewe");
 					prefsEditor.commit();
-					Intent mainIntent = new Intent(LanguageSettingsActivity.this,MenuActivity.class);
-					 LanguageSettingsActivity.this.startActivity(mainIntent);
 					 LanguageSettingsActivity.this.finish();
 				}else if(languageOptions.getCheckedRadioButtonId()==R.id.language_dagaare){
 					SharedPreferences myPrefs = LanguageSettingsActivity.this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
 					SharedPreferences.Editor prefsEditor = myPrefs.edit();
 					prefsEditor.putString("option", "Dagaare");
 					prefsEditor.commit();
-					Intent mainIntent = new Intent(LanguageSettingsActivity.this,MenuActivity.class);
-					LanguageSettingsActivity.this.startActivity(mainIntent);
 					LanguageSettingsActivity.this.finish();
 				}else if(languageOptions.getCheckedRadioButtonId()==R.id.language_dagbani){
 					SharedPreferences myPrefs = LanguageSettingsActivity.this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
 					SharedPreferences.Editor prefsEditor = myPrefs.edit();
 					prefsEditor.putString("option", "Dagbani");
 					prefsEditor.commit();
-					Intent mainIntent = new Intent(LanguageSettingsActivity.this,MenuActivity.class);
-					LanguageSettingsActivity.this.startActivity(mainIntent);
 					LanguageSettingsActivity.this.finish();
 				}else if(languageOptions.getCheckedRadioButtonId()==R.id.language_gonja){
 					SharedPreferences myPrefs = LanguageSettingsActivity.this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
 					SharedPreferences.Editor prefsEditor = myPrefs.edit();
 					prefsEditor.putString("option", "Gonja");
 					prefsEditor.commit();
-					Intent mainIntent = new Intent(LanguageSettingsActivity.this,MenuActivity.class);
-					LanguageSettingsActivity.this.startActivity(mainIntent);
 					LanguageSettingsActivity.this.finish();
 				}else if(languageOptions.getCheckedRadioButtonId()==R.id.language_dangme){
 					SharedPreferences myPrefs = LanguageSettingsActivity.this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
 					SharedPreferences.Editor prefsEditor = myPrefs.edit();
 					prefsEditor.putString("option", "Dangme");
 					prefsEditor.commit();
-					Intent mainIntent = new Intent(LanguageSettingsActivity.this,MenuActivity.class);
-					LanguageSettingsActivity.this.startActivity(mainIntent);
 					LanguageSettingsActivity.this.finish();
 				}else if(languageOptions.getCheckedRadioButtonId()==R.id.language_kassem){
 					SharedPreferences myPrefs = LanguageSettingsActivity.this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
 					SharedPreferences.Editor prefsEditor = myPrefs.edit();
-					prefsEditor.putString("option", "Kassem");
+					prefsEditor.putString("option", "Kasim");
 					prefsEditor.commit();
-					Intent mainIntent = new Intent(LanguageSettingsActivity.this,MenuActivity.class);
-					LanguageSettingsActivity.this.startActivity(mainIntent);
 					LanguageSettingsActivity.this.finish();
 				}else if(languageOptions.getCheckedRadioButtonId()==R.id.language_hausa){
 					SharedPreferences myPrefs = LanguageSettingsActivity.this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
 					SharedPreferences.Editor prefsEditor = myPrefs.edit();
 					prefsEditor.putString("option", "Hausa");
 					prefsEditor.commit();
-					Intent mainIntent = new Intent(LanguageSettingsActivity.this,MenuActivity.class);
-					LanguageSettingsActivity.this.startActivity(mainIntent);
 					LanguageSettingsActivity.this.finish();
 				}else if(languageOptions.getCheckedRadioButtonId()==R.id.language_twi){
 					SharedPreferences myPrefs = LanguageSettingsActivity.this.getSharedPreferences("myPrefs", MODE_WORLD_READABLE);
 					SharedPreferences.Editor prefsEditor = myPrefs.edit();
 					prefsEditor.putString("option", "Twi");
 					prefsEditor.commit();
-					Intent mainIntent = new Intent(LanguageSettingsActivity.this,MenuActivity.class);
-					LanguageSettingsActivity.this.startActivity(mainIntent);
 					LanguageSettingsActivity.this.finish();
 				}
 
@@ -167,7 +150,7 @@ public class LanguageSettingsActivity extends Activity implements OnItemClickLis
 			 
 			break;
 		case 2:	
-			Intent i = new Intent(LanguageSettingsActivity.this,LoginActivity.class);
+			 Intent i = new Intent(LanguageSettingsActivity.this,LoginActivity.class);
 			 LanguageSettingsActivity.this.startActivity(i);
 			 LanguageSettingsActivity.this.finish();
 			break;
