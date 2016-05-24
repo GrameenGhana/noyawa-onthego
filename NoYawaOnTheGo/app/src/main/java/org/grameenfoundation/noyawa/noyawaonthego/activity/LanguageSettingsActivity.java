@@ -2,11 +2,17 @@ package org.grameenfoundation.noyawa.noyawaonthego.activity;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -25,14 +31,16 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.grameenfoundation.noyawa.noyawaonthego.R;
 import org.grameenfoundation.noyawa.noyawaonthego.adapter.SettingMenuBaseAdapter;
+import org.grameenfoundation.noyawa.noyawaonthego.database.DatabaseHelper;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LanguageSettingsActivity extends Activity implements OnItemClickListener {
+public class LanguageSettingsActivity extends AppCompatActivity implements OnItemClickListener {
 
 	private RadioButton languageEnglishButton;
 	private RadioButton languageEweButton;
@@ -135,6 +143,70 @@ public class LanguageSettingsActivity extends Activity implements OnItemClickLis
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.action_bar_all, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+			case R.id.action_logout:
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						LanguageSettingsActivity.this);
+
+				// set title
+				alertDialogBuilder.setTitle("Logout");
+
+				// set dialog message
+				alertDialogBuilder
+						.setMessage("You will be logged out.Continue?")
+						.setCancelable(false)
+						.setIcon(R.drawable.ic_warning)
+						.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,int id) {
+								getBaseContext().deleteDatabase(DatabaseHelper.DATABASE_NAME);
+								String filePath = getApplicationContext().getFilesDir().getPath()+"/"+"shared_prefs/loginPrefs.xml";
+								//File deletePrefFile = new File(filePath );
+								//deletePrefFile.delete();
+								dialog.cancel();
+								Intent intent=new Intent(LanguageSettingsActivity.this, WelcomeActivity.class);
+								startActivity(intent);
+								LanguageSettingsActivity.this.finish();
+
+							}
+						})
+						.setNegativeButton("No",new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,int id) {
+								dialog.cancel();
+
+							}
+						});
+
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+
+				// show it
+				alertDialog.show();
+
+				return true;
+
+			case R.id.action_home:
+				Intent goHome = new Intent(Intent.ACTION_MAIN);
+				goHome.setClass(LanguageSettingsActivity.this, MenuActivity.class);
+				goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(goHome);
+				finish();
+
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		switch(position){
@@ -149,10 +221,45 @@ public class LanguageSettingsActivity extends Activity implements OnItemClickLis
 
 			 
 			break;
-		case 2:	
-			 Intent i = new Intent(LanguageSettingsActivity.this,LoginActivity.class);
-			 LanguageSettingsActivity.this.startActivity(i);
-			 LanguageSettingsActivity.this.finish();
+		case 2:
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					LanguageSettingsActivity.this);
+
+			// set title
+			alertDialogBuilder.setTitle("Logout");
+
+			// set dialog message
+			alertDialogBuilder
+					.setMessage("You will be logged out.Continue?")
+					.setCancelable(false)
+					.setIcon(R.drawable.ic_warning)
+					.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							getBaseContext().deleteDatabase(DatabaseHelper.DATABASE_NAME);
+							String filePath = getApplicationContext().getFilesDir().getPath()+"/"+"shared_prefs/loginPrefs.xml";
+							File deletePrefFile = new File(filePath );
+							//deletePrefFile.delete();
+							dialog.cancel();
+							Intent intent=new Intent(LanguageSettingsActivity.this, WelcomeActivity.class);
+							startActivity(intent);
+							LanguageSettingsActivity.this.finish();
+
+						}
+					})
+					.setNegativeButton("No",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							dialog.cancel();
+
+						}
+					});
+
+			// create alert dialog
+			AlertDialog alertDialog = alertDialogBuilder.create();
+
+			// show it
+			alertDialog.show();
+
+
 			break;
 		}
 		

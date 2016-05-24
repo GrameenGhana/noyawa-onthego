@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,7 +22,7 @@ import org.grameenfoundation.noyawa.noyawaonthego.database.DatabaseHelper;
 
 import java.io.File;
 
-public class VisualAidsGalleryView extends Activity {
+public class VisualAidsGalleryView extends AppCompatActivity {
 
 	private int position;
 	private PinchZoom image;
@@ -176,7 +177,7 @@ public class VisualAidsGalleryView extends Activity {
 							 getBaseContext().deleteDatabase(DatabaseHelper.DATABASE_NAME);
 							 String filePath = getApplicationContext().getFilesDir().getPath()+"/"+"shared_prefs/loginPrefs.xml";
 							 File deletePrefFile = new File(filePath );
-							  deletePrefFile.delete();
+							  //deletePrefFile.delete();
 							  dialog.cancel();
 							 Intent intent=new Intent(VisualAidsGalleryView.this, WelcomeActivity.class);
 								startActivity(intent);

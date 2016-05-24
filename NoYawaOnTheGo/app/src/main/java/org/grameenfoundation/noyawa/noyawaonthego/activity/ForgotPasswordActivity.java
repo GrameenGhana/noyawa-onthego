@@ -45,4 +45,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     public void forgotPassword(){
          // TODO: 1/25/16
     }
+
+
 }

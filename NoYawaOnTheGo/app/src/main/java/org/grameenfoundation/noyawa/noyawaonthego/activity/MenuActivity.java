@@ -98,6 +98,7 @@ public class MenuActivity extends Activity implements AdapterView.OnItemClickLis
 
         TextView languageselected = (TextView)findViewById(R.id.languageselected);
         languageselected.setText("Selected Language: "+getLanguage().toUpperCase());
+        languageselected.setTextColor(Color.rgb(238, 106, 80));
 
     }
 
@@ -198,7 +199,7 @@ public class MenuActivity extends Activity implements AdapterView.OnItemClickLis
                 startActivity(intent);
                 break;
             case 6:
-                intent=new Intent(MenuActivity.this, MeetingsActivity.class);
+                intent=new Intent(MenuActivity.this, MeetingSessionActivity.class);
                 startActivity(intent);
                 break;
             case 7:

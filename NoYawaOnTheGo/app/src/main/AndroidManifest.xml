@@ -51,6 +51,7 @@
         <activity android:name="org.grameenfoundation.noyawa.noyawaonthego.activity.YouthHealthMenuActivity"></activity>
         <activity android:name="org.grameenfoundation.noyawa.noyawaonthego.application.URLMediaPlayerActivity"></activity>
         <activity android:name="org.grameenfoundation.noyawa.noyawaonthego.activity.MeetingsActivity"></activity>
+        <activity android:name="org.grameenfoundation.noyawa.noyawaonthego.activity.MeetingSessionActivity"></activity>
         <activity android:name="org.grameenfoundation.noyawa.noyawaonthego.activity.LanguageSettingsActivity"></activity>
     </application>
 

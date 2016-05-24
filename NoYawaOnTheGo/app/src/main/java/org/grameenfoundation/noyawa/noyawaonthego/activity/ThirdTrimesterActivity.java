@@ -1,8 +1,14 @@
 package org.grameenfoundation.noyawa.noyawaonthego.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -13,9 +19,12 @@ import org.grameenfoundation.noyawa.noyawaonthego.R;
 import org.grameenfoundation.noyawa.noyawaonthego.adapter.TrimesterListViewAdapter;
 import org.grameenfoundation.noyawa.noyawaonthego.application.BaseActivity;
 import org.grameenfoundation.noyawa.noyawaonthego.application.Noyawa;
+import org.grameenfoundation.noyawa.noyawaonthego.database.DatabaseHelper;
+
+import java.io.File;
 
 
-public class ThirdTrimesterActivity extends BaseActivity implements OnItemClickListener {
+public class ThirdTrimesterActivity extends AppCompatActivity implements OnItemClickListener {
 	
 	private ListView listView;
 
@@ -211,7 +220,74 @@ public class ThirdTrimesterActivity extends BaseActivity implements OnItemClickL
 		
 		
 	}
-	
-	
-	
+
+
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.action_bar_all, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+			case R.id.action_logout:
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						ThirdTrimesterActivity.this);
+
+				// set title
+				alertDialogBuilder.setTitle("Logout");
+
+				// set dialog message
+				alertDialogBuilder
+						.setMessage("You will be logged out.Continue?")
+						.setCancelable(false)
+						.setIcon(R.drawable.ic_warning)
+						.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,int id) {
+								getBaseContext().deleteDatabase(DatabaseHelper.DATABASE_NAME);
+								String filePath = getApplicationContext().getFilesDir().getPath()+"/"+"shared_prefs/loginPrefs.xml";
+								File deletePrefFile = new File(filePath );
+								//deletePrefFile.delete();
+								dialog.cancel();
+								Intent intent=new Intent(ThirdTrimesterActivity.this, WelcomeActivity.class);
+								startActivity(intent);
+								ThirdTrimesterActivity.this.finish();
+
+							}
+						})
+						.setNegativeButton("No",new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,int id) {
+								dialog.cancel();
+
+							}
+						});
+
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+
+				// show it
+				alertDialog.show();
+
+				return true;
+
+			case R.id.action_home:
+				Intent goHome = new Intent(Intent.ACTION_MAIN);
+				goHome.setClass(ThirdTrimesterActivity.this, MenuActivity.class);
+				goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(goHome);
+				finish();
+
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+
+
+
+
 }

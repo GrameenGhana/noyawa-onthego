@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,7 +23,7 @@ import org.grameenfoundation.noyawa.noyawaonthego.database.DatabaseHelper;
 
 import java.io.File;
 
-public class PregnancyMenuActivity extends Activity implements OnItemClickListener {
+public class PregnancyMenuActivity extends AppCompatActivity implements OnItemClickListener {
 
 	private ListView listView;
 	
@@ -79,7 +80,7 @@ public class PregnancyMenuActivity extends Activity implements OnItemClickListen
 							 getBaseContext().deleteDatabase(DatabaseHelper.DATABASE_NAME);
 							 String filePath = getApplicationContext().getFilesDir().getPath()+"/"+"shared_prefs/loginPrefs.xml";
 							 File deletePrefFile = new File(filePath );
-							  deletePrefFile.delete();
+							  //deletePrefFile.delete();
 							  dialog.cancel();
 							 Intent intent=new Intent(PregnancyMenuActivity.this, WelcomeActivity.class);
 								startActivity(intent);

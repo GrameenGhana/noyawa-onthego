@@ -38,4 +38,8 @@
     <string name="start">Start</string>
     <string name="meeting_title">Meeting Title :</string>
     <string name="comments">Comments :</string>
+    <string name="some_hint">
+       Type here to filter&#8230;
+    </string>
+
 </resources>

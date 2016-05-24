@@ -1,12 +1,18 @@
 package org.grameenfoundation.noyawa.noyawaonthego.activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -37,10 +43,12 @@ import org.grameenfoundation.noyawa.noyawaonthego.application.BaseActivity;
 import org.grameenfoundation.noyawa.noyawaonthego.application.ConnectionDetector;
 import org.grameenfoundation.noyawa.noyawaonthego.application.JsonParser;
 import org.grameenfoundation.noyawa.noyawaonthego.application.Noyawa;
+import org.grameenfoundation.noyawa.noyawaonthego.database.DatabaseHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -50,7 +58,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class NewClientRegistrationActivity extends BaseActivity  {
+public class NewClientRegistrationActivity extends AppCompatActivity {
 
 
     @Bind(R.id.editText_phoneNumber) EditText phone_number;
@@ -369,6 +377,71 @@ public class NewClientRegistrationActivity extends BaseActivity  {
 
         return valid;
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_all, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        NewClientRegistrationActivity.this);
+
+                // set title
+                alertDialogBuilder.setTitle("Logout");
+
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage("You will be logged out.Continue?")
+                        .setCancelable(false)
+                        .setIcon(R.drawable.ic_warning)
+                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                getBaseContext().deleteDatabase(DatabaseHelper.DATABASE_NAME);
+                                String filePath = getApplicationContext().getFilesDir().getPath()+"/"+"shared_prefs/loginPrefs.xml";
+                                File deletePrefFile = new File(filePath );
+                                //deletePrefFile.delete();
+                                dialog.cancel();
+                                Intent intent=new Intent(NewClientRegistrationActivity.this, WelcomeActivity.class);
+                                startActivity(intent);
+                                NewClientRegistrationActivity.this.finish();
+
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+
+                return true;
+
+            case R.id.action_home:
+                Intent goHome = new Intent(Intent.ACTION_MAIN);
+                goHome.setClass(NewClientRegistrationActivity.this, MenuActivity.class);
+                goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(goHome);
+                finish();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 
 

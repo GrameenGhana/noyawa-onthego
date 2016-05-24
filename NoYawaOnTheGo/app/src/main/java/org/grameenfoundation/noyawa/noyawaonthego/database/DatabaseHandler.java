@@ -10,6 +10,7 @@ import org.grameenfoundation.noyawa.noyawaonthego.application.Noyawa;
 import org.grameenfoundation.noyawa.noyawaonthego.model.UsageTracking;
 import org.grameenfoundation.noyawa.noyawaonthego.model.User;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,6 +57,78 @@ public void insertLoginActivity(String date,String time,String username,String s
         long newRowId;
         newRowId = db.insert(
         DataClass.NoyawaDatabase.LOGIN_ACTIVITY_TABLE_NAME, null, values);
+        }
+
+        public void insertMeetingSession(String meeting_id,String meeting_title,String start_time,String male_attendence,String female_attendence,String location,String region,String comments){
+                SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put(DataClass.NoyawaDatabase.COL_MEETING_TITLE,meeting_title);
+                values.put(DataClass.NoyawaDatabase.COL_MEETING_ID,meeting_id);
+                values.put(DataClass.NoyawaDatabase.COL_START_TIME,start_time);
+                values.put(DataClass.NoyawaDatabase.COL_MALE_ATTENDENCE,male_attendence);
+                values.put(DataClass.NoyawaDatabase.COL_FEMALE_ATTENDENCE,female_attendence);
+                values.put(DataClass.NoyawaDatabase.COL_LOCATION,location);
+                values.put(DataClass.NoyawaDatabase.COL_REGION,region);
+                values.put(DataClass.NoyawaDatabase.COL_COMMENTS,comments);
+                values.put(DataClass.NoyawaDatabase.COL_IN_SESSION,"In Session");
+
+                long newRowId;
+                newRowId = db.insert(
+                        DataClass.NoyawaDatabase.MEETING_SESSION_TABLE_NAME, null, values);
+
+                Log.i("DatabaseHandler","Saving ... Id -->" +newRowId);
+        }
+
+        public boolean deleteAllMeetingSessions() {
+                SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                int doneDelete = 0;
+                doneDelete = db.delete(DataClass.NoyawaDatabase.MEETING_SESSION_TABLE_NAME, null , null);
+
+                return doneDelete > 0;
+
+        }
+
+        public Cursor fetchMeetingSessionByName(String inputText) throws SQLException {
+                SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                Cursor mCursor = null;
+                if (inputText == null  ||  inputText.length () == 0)  {
+                        mCursor = db.query(DataClass.NoyawaDatabase.MEETING_SESSION_TABLE_NAME, new String[] {DataClass.NoyawaDatabase.COL_MEETING_TITLE,
+                                        DataClass.NoyawaDatabase.COL_START_TIME, DataClass.NoyawaDatabase.COL_MALE_ATTENDENCE, DataClass.NoyawaDatabase.COL_FEMALE_ATTENDENCE, DataClass.NoyawaDatabase.COL_LOCATION},
+                                null, null, null, null, null);
+
+                }
+                else {
+                        mCursor = db.query(true, DataClass.NoyawaDatabase.MEETING_SESSION_TABLE_NAME, new String[] {DataClass.NoyawaDatabase.COL_MEETING_TITLE,
+                                        DataClass.NoyawaDatabase.COL_START_TIME, DataClass.NoyawaDatabase.COL_MALE_ATTENDENCE, DataClass.NoyawaDatabase.COL_FEMALE_ATTENDENCE, DataClass.NoyawaDatabase.COL_LOCATION},
+                                DataClass.NoyawaDatabase.COL_MEETING_TITLE + " like '%" + inputText + "%'", null,
+                                null, null, null, null);
+                }
+                if (mCursor != null) {
+                        mCursor.moveToFirst();
+                }
+                return mCursor;
+
+        }
+
+        public Cursor fetchAllMeetingSessions() {
+                SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                Cursor mCursor = db.query(DataClass.NoyawaDatabase.MEETING_SESSION_TABLE_NAME, new String[]{DataClass.NoyawaDatabase._ID,DataClass.NoyawaDatabase.COL_MEETING_TITLE,
+                                DataClass.NoyawaDatabase.COL_START_TIME, DataClass.NoyawaDatabase.COL_LOCATION, DataClass.NoyawaDatabase.COL_IN_SESSION,DataClass.NoyawaDatabase.COL_MEETING_ID},
+                        null, null, null, null, null);
+
+                if (mCursor != null) {
+                        mCursor.moveToFirst();
+                }
+                return mCursor;
+        }
+
+        public void updateMeetingSessionStatus(String status,String id){
+                SQLiteDatabase database = mDbHelper.getWritableDatabase();
+                String updateQuery = "Update "+DataClass.NoyawaDatabase.MEETING_SESSION_TABLE_NAME+ " set "+
+                        DataClass.NoyawaDatabase.COL_IN_SESSION+" = '"+ status +"' where "+DataClass.NoyawaDatabase.COL_MEETING_ID+" = '"+id+"' ";
+                Log.d("query", updateQuery);
+                database.execSQL(updateQuery);
+                database.close();
         }
 
 public void insertUsageActivity(String username,String module,String submodule, String type,String action_date,String duration,String duration_played,String status,String extras,String update_status){

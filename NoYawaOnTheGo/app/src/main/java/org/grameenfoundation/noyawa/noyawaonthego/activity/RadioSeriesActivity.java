@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,7 +26,7 @@ import java.io.File;
 /**
  * Created by mac on 1/26/16.
  */
-public class RadioSeriesActivity  extends BaseActivity implements AdapterView.OnItemClickListener  {
+public class RadioSeriesActivity  extends AppCompatActivity implements AdapterView.OnItemClickListener  {
 
 
 
@@ -48,8 +49,8 @@ public class RadioSeriesActivity  extends BaseActivity implements AdapterView.On
         header.setTypeface(custom_font);
 
         listView=(ListView) findViewById(R.id.pregnancy_menu_listView);
-        String[] values={"Episodes",
-                "Synopsis"};
+        String[] values={"Synopsis","Episodes"
+                };
 
         int[] images={R.drawable.player_icon,
                 R.drawable.player_icon};
@@ -88,7 +89,7 @@ public class RadioSeriesActivity  extends BaseActivity implements AdapterView.On
                                 getBaseContext().deleteDatabase(DatabaseHelper.DATABASE_NAME);
                                 String filePath = getApplicationContext().getFilesDir().getPath()+"/"+"shared_prefs/loginPrefs.xml";
                                 File deletePrefFile = new File(filePath );
-                                deletePrefFile.delete();
+                                //deletePrefFile.delete();
                                 dialog.cancel();
                                 Intent intent=new Intent(RadioSeriesActivity.this, WelcomeActivity.class);
                                 startActivity(intent);
@@ -137,7 +138,30 @@ public class RadioSeriesActivity  extends BaseActivity implements AdapterView.On
 
         switch (position){
 
-            case 0	:
+            case 0:
+                intent=new Intent(RadioSeriesActivity.this, AudioGalleryActivity.class);
+                type="Audio";
+                submodule="Synopsis";
+                module=Noyawa.MODULE_RADIO_STORY_MESSAGES;
+                extras=" ";
+                englishLocation="Noyawa/Radio Story Messages/ENGLISH SYNOPSIS";
+                eweLocation="Noyawa/Radio Story Messages/EWE SYNOPSIS/";
+                dagbaniLocation="Noyawa/Radio Story Messages/DAGBANI SYNOPSIS/";
+                twiLocation="Noyawa/Radio Story Messages/TWI SYNOPSIS/";
+
+                intent.putExtra(Noyawa.TYPE, type);
+                intent.putExtra(Noyawa.SUB_MODULE, submodule);
+                intent.putExtra(Noyawa.MODULE, module);
+                intent.putExtra(Noyawa.EXTRAS,extras);
+                intent.putExtra(Noyawa.ENGLISH_AUDIO_LOCATION, englishLocation);
+                intent.putExtra(Noyawa.DAGBANI_AUDIO_LOCATION, dagbaniLocation);
+                intent.putExtra(Noyawa.TWI_AUDIO_LOCATION, twiLocation);
+                intent.putExtra(Noyawa.EWE_AUDIO_LOCATION, eweLocation);
+
+                startActivity(intent);
+                break;
+
+            case 1	:
                 intent=new Intent(RadioSeriesActivity.this, AudioGalleryActivity.class);
                 type="Audio";
                 submodule="Episodes";
@@ -160,28 +184,7 @@ public class RadioSeriesActivity  extends BaseActivity implements AdapterView.On
                 startActivity(intent);
                 break;
 
-            case 1:
-                intent=new Intent(RadioSeriesActivity.this, AudioGalleryActivity.class);
-                type="Audio";
-                submodule="Synopsis";
-                module=Noyawa.MODULE_RADIO_STORY_MESSAGES;
-                extras=" ";
-                englishLocation="Noyawa/Radio Story Messages/ENGLISH SYNOPSIS";
-                eweLocation="Noyawa/Radio Story Messages/EWE SYNOPSIS/";
-                dagbaniLocation="Noyawa/Radio Story Messages/DAGBANI SYNOPSIS/";
-                twiLocation="Noyawa/Radio Story Messages/TWI SYNOPSIS/";
 
-                intent.putExtra(Noyawa.TYPE, type);
-                intent.putExtra(Noyawa.SUB_MODULE, submodule);
-                intent.putExtra(Noyawa.MODULE, module);
-                intent.putExtra(Noyawa.EXTRAS,extras);
-                intent.putExtra(Noyawa.ENGLISH_AUDIO_LOCATION, englishLocation);
-                intent.putExtra(Noyawa.DAGBANI_AUDIO_LOCATION, dagbaniLocation);
-                intent.putExtra(Noyawa.TWI_AUDIO_LOCATION, twiLocation);
-                intent.putExtra(Noyawa.EWE_AUDIO_LOCATION, eweLocation);
-
-                startActivity(intent);
-                break;
 
 
 

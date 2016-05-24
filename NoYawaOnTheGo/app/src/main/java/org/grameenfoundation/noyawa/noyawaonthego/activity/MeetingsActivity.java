@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.AppCompatActivity;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
@@ -38,6 +39,7 @@ import org.grameenfoundation.noyawa.noyawaonthego.application.BaseActivity;
 import org.grameenfoundation.noyawa.noyawaonthego.application.ConnectionDetector;
 import org.grameenfoundation.noyawa.noyawaonthego.application.JsonParser;
 import org.grameenfoundation.noyawa.noyawaonthego.application.Noyawa;
+import org.grameenfoundation.noyawa.noyawaonthego.database.DatabaseHandler;
 import org.grameenfoundation.noyawa.noyawaonthego.database.DatabaseHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,7 +57,7 @@ import butterknife.ButterKnife;
 /**
  * Created by mac on 1/26/16.
  */
-public class MeetingsActivity extends BaseActivity {
+public class MeetingsActivity extends AppCompatActivity {
 
 
     @Bind(R.id.editText_address) EditText address;
@@ -79,6 +81,7 @@ public class MeetingsActivity extends BaseActivity {
     //server responses
     private Boolean error = true;
     private String message = "";
+    private String meeting_id = "";
 
     private JsonParser jsonParser;
 
@@ -86,6 +89,8 @@ public class MeetingsActivity extends BaseActivity {
 
     private SharedPreferences loginPref;
     private String name;
+
+    private DatabaseHandler db;
 
 
     // flag for Internet connection status
@@ -101,6 +106,10 @@ public class MeetingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.meetings_activity);
         ButterKnife.bind(this);
+
+        //create an instance of the database handler class
+        db=new DatabaseHandler(MeetingsActivity.this);
+
 
         populateRegionSpinner();
         region.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -242,8 +251,11 @@ public class MeetingsActivity extends BaseActivity {
                 JSONObject json = jsonParser.getJSONFromUrl(meetingURL, nameValuePairs);
                 error = json.getBoolean("error");
                 message = json.getString("msg");
+                meeting_id = json.getString("meeting_id");
 
                 Log.i(TAG, "Message -> " + message);
+
+                db.insertMeetingSession(meeting_id,selected_meeting_title,currentDateandTime,male_attendance.getText().toString(),female_attendance.getText().toString(),address.getText().toString(),selected_region,comments.getText().toString());
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -316,6 +328,71 @@ public class MeetingsActivity extends BaseActivity {
         }
 
         return valid;
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_all, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        MeetingsActivity.this);
+
+                // set title
+                alertDialogBuilder.setTitle("Logout");
+
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage("You will be logged out.Continue?")
+                        .setCancelable(false)
+                        .setIcon(R.drawable.ic_warning)
+                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                getBaseContext().deleteDatabase(DatabaseHelper.DATABASE_NAME);
+                                String filePath = getApplicationContext().getFilesDir().getPath()+"/"+"shared_prefs/loginPrefs.xml";
+                                File deletePrefFile = new File(filePath );
+                                //deletePrefFile.delete();
+                                dialog.cancel();
+                                Intent intent=new Intent(MeetingsActivity.this, WelcomeActivity.class);
+                                startActivity(intent);
+                                MeetingsActivity.this.finish();
+
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+
+                return true;
+
+            case R.id.action_home:
+                Intent goHome = new Intent(Intent.ACTION_MAIN);
+                goHome.setClass(MeetingsActivity.this, MenuActivity.class);
+                goHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(goHome);
+                finish();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

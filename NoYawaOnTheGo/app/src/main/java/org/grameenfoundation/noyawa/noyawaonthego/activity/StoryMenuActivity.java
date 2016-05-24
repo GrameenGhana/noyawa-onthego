@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,7 +26,7 @@ import java.io.File;
 /**
  * Created by mac on 1/26/16.
  */
-public class StoryMenuActivity extends BaseActivity implements AdapterView.OnItemClickListener {
+public class StoryMenuActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
 
 
@@ -92,7 +93,7 @@ public class StoryMenuActivity extends BaseActivity implements AdapterView.OnIte
                                 getBaseContext().deleteDatabase(DatabaseHelper.DATABASE_NAME);
                                 String filePath = getApplicationContext().getFilesDir().getPath()+"/"+"shared_prefs/loginPrefs.xml";
                                 File deletePrefFile = new File(filePath );
-                                deletePrefFile.delete();
+                                //deletePrefFile.delete();
                                 dialog.cancel();
                                 Intent intent=new Intent(StoryMenuActivity.this, WelcomeActivity.class);
                                 startActivity(intent);
